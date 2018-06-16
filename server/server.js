@@ -3,8 +3,8 @@ var bodyParser = require('body-parser');
 
 
 var {mongoose} = require('./db/mongoose');
-var {Todo} = require('./db/models/todos');
-var {User} = require('./db/models/user');
+var {Todo} = require('./models/todos');
+var {User} = require('./models/user');
 
 var app = express();
 
@@ -16,7 +16,7 @@ app.post('/todos', (req,res) => {
   var newTodo = new Todo(req.body);
 
   newTodo.save().then((docs) => {
-    res.send(JSON.stringify(docs, undefined, 2));
+    res.send(docs);
   }, (e) => {
     res.status(400).send(e);
 
@@ -26,3 +26,8 @@ app.post('/todos', (req,res) => {
 app.listen(3000, () => {
   console.log("Started on port 3000");
 });
+
+
+
+
+module.exports = {app};
